@@ -1,0 +1,56 @@
+<h1><%= @cat.name %></h1>
+<h2>Information</h2>
+<table>
+    
+        <tr>
+            <th>Name</th>
+            <th>Sex</th>
+            <th>Age</th>
+            <th>Color</th>
+            <th>Description</th>
+        </tr>
+    
+    <tr>
+        <td><%= @cat.name %> </td>
+        <td><%= @cat.sex %> </td>
+        <td><%= @cat.age %> </td>
+        <td><%= @cat.color %> </td>
+        <td><%= @cat.description %> </td>
+    </tr>
+    
+</table>
+<a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a>
+
+<h2>Requests</h2>
+<table>
+    
+        <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Approve / Deny </th>
+        </tr>
+    
+
+    <% CatRentalRequest.where(cat_id: @cat.id).order(:start_date).each do |request|%>
+    <tr>
+        <td><%= request.start_date %> </td>
+        <td><%= request.end_date %> </td>
+        <td><%= request.status %> </td>
+        <td>
+        <% if request.pending?%>
+        <form action="<%= approve_cat_rental_request_url(request)%>" method="post">
+        <input type="submit" value="Approve">
+        </form>
+        <br>
+        <form action="<%= deny_cat_rental_request_url(request)%>" method="post">
+        <input type="submit" value="Deny">
+        </form>
+        <% end %>
+        </td>
+    </tr>
+    <% end %>
+    
+</table>
+
+<a href="<%= new_cat_rental_request_url %>">Add request </a>

@@ -1,0 +1,20 @@
+<style>
+
+.cat {width: 25%;
+    padding: 20px;
+    margin: 20px 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: darkcyan;}
+.cat-section {width:100%; display:flex;justify-content:space-around;flex-wrap:wrap;}
+</style>
+
+<h1>The Cats</h1>
+<section class="cat-section">
+<% @cats.each do |cat|%>
+<div class="cat">
+    <h2><%= link_to "#{cat.name}", cat%></h2>
+</div>
+<% end %>
+</section>
